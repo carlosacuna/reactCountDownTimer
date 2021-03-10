@@ -7,8 +7,6 @@ const App = () => {
   const [time, setTime] = useState('');
   const [counterTimer, setCounterTimer] = useState('');
 
-
-
   const calculateTime = () => {
     let initalSeconds = Number(secondsParam);
      
@@ -25,7 +23,7 @@ const App = () => {
     // Generate new date timer value
     let timeDiff = Math.abs(newDate.getTime() - dateNow.getTime());
     var secDiff = Math.floor((timeDiff / 1000) % 60);
-    var minDiff = Math.floor(timeDiff / 60 / 1000);
+    var minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
     var hDiff = Math.floor(timeDiff / 3600 / 1000);
     secDiff = secDiff < 10 ? '0'+secDiff : secDiff
     minDiff = minDiff < 10 ? '0'+minDiff : minDiff
