@@ -10,17 +10,17 @@ const App = () => {
 
   const calculateTime = () => {
     let initalSeconds = Number(secondsParam);
-     
+
     // Modified seconds to minutes
     var secondsToMinutes = Math.floor(initalSeconds / 60);
     var dateNow = new Date();
 
     // Modified form date
-    const milliseconds = dateTimestamp * 1000;
-    var dateOriginal = new Date(milliseconds);
+    let milliseconds = Number(dateTimestamp.slice(0,10)) * 1000;
+    var dateOriginal = new Date(milliseconds);    
     var newDate  = new Date(dateOriginal);
 
-    newDate.setMinutes(dateOriginal.getMinutes() + secondsToMinutes);    
+    newDate.setMinutes(dateOriginal.getMinutes() + secondsToMinutes);
 
     // Generate new date timer value
     let timeDiff = Math.abs(newDate.getTime() - dateNow.getTime());
@@ -50,14 +50,14 @@ const App = () => {
         <input type="number" value={secondsParam} onChange={(e) => setSecondsParam(e.target.value)} />
         <br />
         <label>Unix Timestamp: </label>
-        <input type="number" value={dateTimestamp} onChange={(e) => setDateTimestamp(e.target.value)} />             
-          {secondsParam > 0 &&
-            <div>
-              <button onClick={counter}>Iniciar</button>
-              <br />
-              <span style={incrementalState ? { color: '#FF0000' } : { color: '#000000' }}>{counterTimer}</span>
-            </div>
-          }
+        <input type="number" value={dateTimestamp} onChange={(e) => setDateTimestamp(e.target.value)} />
+        {secondsParam > 0 &&
+          <div>
+            <button onClick={counter}>Iniciar</button>
+            <br />
+            <span style={incrementalState ? { color: '#FF0000' } : { color: '#000000' }}>{counterTimer}</span>
+          </div>
+        }
       </div>
     </div>
   );
