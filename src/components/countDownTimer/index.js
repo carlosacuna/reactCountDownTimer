@@ -12,13 +12,13 @@ const CountDownTimer = () => {
         let initalSeconds = Number(secondsParam);
 
         // Modified seconds to minutes
-        var secondsToMinutes = Math.floor(initalSeconds / 60);
-        var dateNow = new Date();
+        let secondsToMinutes = Math.floor(initalSeconds / 60);
+        let dateNow = new Date();
 
         // Modified form date
         let milliseconds = Number(dateTimestamp.slice(0, 10)) * 1000;
-        var dateOriginal = new Date(milliseconds);
-        var newDate = new Date(dateOriginal);
+        let dateOriginal = new Date(milliseconds);
+        let newDate = new Date(dateOriginal);
 
         newDate.setMinutes(dateOriginal.getMinutes() + secondsToMinutes);
 
@@ -27,9 +27,9 @@ const CountDownTimer = () => {
         // Validate state incremental counter
         newDate.getTime() < dateNow.getTime() ? setIncrementalState(true) : setIncrementalState(false);
 
-        var secDiff = Math.floor((timeDiff / 1000) % 60);
-        var minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
-        var hDiff = Math.floor(timeDiff / 3600 / 1000);
+        let secDiff = Math.floor((timeDiff / 1000) % 60);
+        let minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
+        let hDiff = Math.floor(timeDiff / 3600 / 1000);
         secDiff = secDiff < 10 ? '0' + secDiff : secDiff
         minDiff = minDiff < 10 ? '0' + minDiff : minDiff
         hDiff = hDiff == 0 ? '' : hDiff < 10 ? '0' + hDiff + ':' : hDiff + ':'
