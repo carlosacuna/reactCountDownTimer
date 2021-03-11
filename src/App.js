@@ -6,6 +6,7 @@ const App = () => {
   const [dateTimestamp, setDateTimestamp] = useState('');
   const [counterTimer, setCounterTimer] = useState('');
   const [timerInterval, setTimerInterval] = useState('');
+  const [incrementalState, setIncrementalState] = useState(false);
 
   const calculateTime = () => {
     let initalSeconds = Number(secondsParam);
@@ -14,7 +15,7 @@ const App = () => {
     var secondsToMinutes = Math.floor(initalSeconds / 60);
     var dateNow = new Date();
 
-    // Modified form date 
+    // Modified form date
     const milliseconds = dateTimestamp * 1000;
     var dateOriginal = new Date(milliseconds);
     var newDate  = new Date(dateOriginal);
@@ -23,6 +24,9 @@ const App = () => {
 
     // Generate new date timer value
     let timeDiff = Math.abs(newDate.getTime() - dateNow.getTime());
+    // Validate state incremental counter
+    newDate.getTime() < dateNow.getTime() ? setIncrementalState(true) : setIncrementalState(false);
+
     var secDiff = Math.floor((timeDiff / 1000) % 60);
     var minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
     var hDiff = Math.floor(timeDiff / 3600 / 1000);
@@ -51,7 +55,7 @@ const App = () => {
             <div>
               <button onClick={counter}>Iniciar</button>
               <br />
-              <span>{counterTimer}</span>              
+              <span style={incrementalState ? { color: '#FF0000' } : { color: '#000000' }}>{counterTimer}</span>
             </div>
           }
       </div>
