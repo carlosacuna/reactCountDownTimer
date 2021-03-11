@@ -3,9 +3,9 @@ import './App.css';
 
 const App = () => {
   const [secondsParam, setSecondsParam] = useState(120);
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [dateTimestamp, setDateTimestamp] = useState('');
   const [counterTimer, setCounterTimer] = useState('');
+  const [timerInterval, setTimerInterval] = useState('');
 
   const calculateTime = () => {
     let initalSeconds = Number(secondsParam);
@@ -15,7 +15,8 @@ const App = () => {
     var dateNow = new Date();
 
     // Modified form date 
-    var dateOriginal = new Date(date+' '+time);    
+    const milliseconds = dateTimestamp * 1000;
+    var dateOriginal = new Date(milliseconds);
     var newDate  = new Date(dateOriginal);
 
     newDate.setMinutes(dateOriginal.getMinutes() + secondsToMinutes);    
@@ -33,21 +34,20 @@ const App = () => {
   }
 
   const counter = async () => {
-    await calculateTime()
-    setInterval(async () => await calculateTime(), 1000);
+    clearInterval(timerInterval);
+    await calculateTime();
+    setTimerInterval(setInterval(async () => await calculateTime(), 1000));
   }
 
   return (
     <div className="App">
       <div>
-        <label>Secundos: </label>
+        <label>Segundos adicionales: </label>
         <input type="number" value={secondsParam} onChange={(e) => setSecondsParam(e.target.value)} />
         <br />
-        <label>Dia: </label>
-        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-        <label>Hora: </label>
-        <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />        
-          {secondsParam > 0 && date !== '' && time !== '' &&
+        <label>Unix Timestamp: </label>
+        <input type="number" value={dateTimestamp} onChange={(e) => setDateTimestamp(e.target.value)} />             
+          {secondsParam > 0 &&
             <div>
               <button onClick={counter}>Iniciar</button>
               <br />
