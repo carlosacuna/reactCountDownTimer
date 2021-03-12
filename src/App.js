@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import CountDownTimer from './components/countDownTimer';
 import SelectStorage from './components/selectStorage';
+import LoadCSVTable from './components/loadCSVTable';
 
 const App = () => {
   return (
@@ -23,6 +24,9 @@ const App = () => {
             <li>
               <Link to="/selectstorage">Selects storage</Link>
             </li>
+            <li>
+              <Link to="/loadcsvtable">loadCSVTable</Link>
+            </li>
           </ul>
         </div>
         <div style={{ float: 'left', width: '80%', paddingTop: 20 }} >
@@ -35,6 +39,9 @@ const App = () => {
             </Route>
             <Route path="/selectstorage">
               <SelectStorage />
+            </Route>
+            <Route path="/loadcsvtable">
+              <LoadCSVTable />
             </Route>
           </Switch>
         </div>
