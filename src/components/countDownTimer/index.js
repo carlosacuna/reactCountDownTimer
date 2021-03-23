@@ -7,25 +7,24 @@ const CountDownTimer = () => {
     const [counterTimer, setCounterTimer] = useState('');
     const [timerInterval, setTimerInterval] = useState('');
     const [incrementalState, setIncrementalState] = useState(false);
+    const [timeZoneState, setTimeZoneState] = useState('');
 
     const calculateTime = () => {
         let initalSeconds = Number(secondsParam);
 
-        // Modified seconds to minutes
-        let secondsToMinutes = Math.floor(initalSeconds / 60);
-        let dateNow = new Date();
+        let dateNow = NowTimeZone(timeZoneState || 'America/Bogota');
 
         // Modified form date
         let milliseconds = Number(dateTimestamp.slice(0, 10)) * 1000;
         let dateOriginal = new Date(milliseconds);
         let newDate = new Date(dateOriginal);
 
-        newDate.setMinutes(dateOriginal.getMinutes() + secondsToMinutes);
+        newDate.setSeconds(dateOriginal.getSeconds() + initalSeconds);
 
         // Generate new date timer value
         let timeDiff = Math.abs(newDate.getTime() - dateNow.getTime());
         // Validate state incremental counter
-        newDate.getTime() < dateNow.getTime() ? setIncrementalState(true) : setIncrementalState(false);
+        newDate.getTime() <= dateNow.getTime() ? setIncrementalState(true) : setIncrementalState(false);
 
         let secDiff = Math.floor((timeDiff / 1000) % 60);
         let minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
@@ -43,6 +42,13 @@ const CountDownTimer = () => {
         setTimerInterval(setInterval(async () => await calculateTime(), 1000));
     }
 
+    const NowTimeZone = (timeZone) => {
+        let nowLocal = new Date();
+        return  new Date(nowLocal.toLocaleString('en-US', {
+            timeZone
+        }))
+    }
+
     return (
         <div className="App">
             <div>
@@ -51,6 +57,9 @@ const CountDownTimer = () => {
                 <br />
                 <label>Unix Timestamp: </label>
                 <input type="number" value={dateTimestamp} onChange={(e) => setDateTimestamp(e.target.value)} />
+                <br />
+                <label>Zona horaria: </label>
+                <input type="text" value={timeZoneState} onChange={(e) => setTimeZoneState(e.target.value)} />
                 {secondsParam > 0 &&
                     <div>
                         <button onClick={counter}>Iniciar</button>
