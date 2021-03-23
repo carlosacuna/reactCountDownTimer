@@ -22,9 +22,17 @@ const CountDownTimer = () => {
         newDate.setSeconds(dateOriginal.getSeconds() + initalSeconds);
 
         // Generate new date timer value
-        let timeDiff = Math.abs(newDate.getTime() - dateNow.getTime());
+        
+        let timeDiff = (newDate.getTime() - dateNow.getTime());
         // Validate state incremental counter
-        newDate.getTime() <= dateNow.getTime() ? setIncrementalState(true) : setIncrementalState(false);
+        if(timeDiff <= 0){
+
+            timeDiff =  Math.abs(timeDiff) + 1000;
+            setIncrementalState(true);
+        }else{
+
+            setIncrementalState(false);
+        }
 
         let secDiff = Math.floor((timeDiff / 1000) % 60);
         let minDiff = Math.floor((timeDiff / 60 / 1000) % 60);
