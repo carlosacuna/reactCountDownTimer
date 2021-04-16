@@ -8,6 +8,7 @@ import {
 import CountDownTimer from './components/countDownTimer';
 import SelectStorage from './components/selectStorage';
 import LoadCSVTable from './components/loadCSVTable';
+import CrmContainer from './containers/crmContainer';
 
 const App = () => {
   return (
@@ -27,6 +28,9 @@ const App = () => {
             <li>
               <Link to="/loadcsvtable">loadCSVTable</Link>
             </li>
+            <li>
+              <Link to="/crm">CRM</Link>
+            </li>
           </ul>
         </div>
         <div style={{ float: 'left', width: '80%', paddingTop: 20 }} >
@@ -42,6 +46,9 @@ const App = () => {
             </Route>
             <Route path="/loadcsvtable">
               <LoadCSVTable />
+            </Route>
+            <Route path="/crm">
+              <CrmContainer />
             </Route>
           </Switch>
         </div>
